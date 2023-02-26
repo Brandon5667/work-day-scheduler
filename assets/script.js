@@ -19,6 +19,52 @@ function createTimeBlocks (){
 }
 createTimeBlocks();
 
+function fixTime(blockHour){
+    var correctTime;
+    if (blockHour < 12 && blockHour != 0){
+      correctTime = blockHour + 'am';
+    }
+    else if (blockHour != 0){
+      blockHour = blockHour - 12;
+      correctTime = blockHour + 'pm';
+    }
+    else {
+      correctTime = '12am';
+    }
+    return correctTime;
+    
+}
+
+function blockChecker(blockHour){
+    var blockColor;
+    if (blockHour < time){
+      blockColor = 'past';
+    }
+    else if (blockHour > time){
+      blockColor = 'future';
+    }
+    else{
+      blockColor = 'present';
+    }
+    return blockColor;
+}
+
+function timeBlockColor(element, blockTime) {
+    if (blockTime<time) {
+      element.addClass("past");
+    }
+    else if (blockTime == time) {
+      element.addClass("present");
+    }
+    else {
+      element.addClass("future");
+    }
+}
+
+function save(x, y){
+    window.localStorage.setItem(x ,y)
+  }
+
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
