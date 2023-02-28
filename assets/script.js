@@ -4,17 +4,25 @@
 var dateEl = $('#currentDay');
 var save = window.localStorage;
 var container = $(".container-fluid")
-var hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
+var hours = [8,9,10,11,12,13,14,15,16,17];
 console.log(hours);
 var day = dayjs().format('ddd, MMM D');
 dateEl.text(day);
 var time = dayjs().format('H');
 console.log(time)
 
+function blockCheckerTwo (){
+  for (i = 0; i<hours.length;i++){
+    $(`input[id="${this.name}"]`).addClass('past')
+  }
+}
+blockCheckerTwo(); 
 function createTimeBlocks (){
     for (var i = 0; i<hours.length; i++) {
-      container.append('<div id="hour-'+ hours[i]+'"class="row time-block '+blockChecker(hours[i]) +'"><div class="col-2 col-md-1 hour text-center py-3">'+ fixTime(hours[i]) + '</div><textarea class="col-8 col-md-10 description" rows="3" id="'+ hours[i]+' text"> </textarea><button class="btn saveBtn col-2 col-md-1" aria-label="save"><i class="fas fa-save" aria-hidden="true" onclick="save('+hours[i]+', '+$('#'+hours[i]+' text').text()+')"></i></button></div>')
+      container.append('<div id="hour-'+ hours[i]+'"class="row time-block '+blockChecker(hours[i]) +'"><div class="col-2 col-md-1 hour text-center py-3">'+ fixTime(hours[i]) + '</div><textarea class="col-8 col-md-10 description" rows="3" id="text'+ hours[i]+' text"> </textarea><button class="btn saveBtn col-2 col-md-1" aria-label="save" onclick="saveToDo('+hours[i]+')"><i class="fas fa-save" aria-hidden="true" id="button'+hours[i]+'" ></i></button></div>')
       
+      
+    
     };
 }
 createTimeBlocks();
@@ -24,12 +32,12 @@ function fixTime(blockHour){
     if (blockHour < 12 && blockHour != 0){
       correctTime = blockHour + 'am';
     }
-    else if (blockHour != 0){
+    else if (blockHour > 12){
       blockHour = blockHour - 12;
       correctTime = blockHour + 'pm';
     }
     else {
-      correctTime = '12am';
+      correctTime = '12pm';
     }
     return correctTime;
     
@@ -61,8 +69,13 @@ function timeBlockColor(element, blockTime) {
     }
 }
 
-function save(x, y){
-    window.localStorage.setItem(x ,y)
+
+function saveToDo(form){
+    console.log(form);
+    var text = $('#text' + form).val();
+    console.log(text)
+    window.localStorage.setItem(form, text);
+    console.log("done");
   }
 
 $(function () {
