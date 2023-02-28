@@ -8,19 +8,21 @@ var hours = [8,9,10,11,12,13,14,15,16,17];
 console.log(hours);
 var day = dayjs().format('ddd, MMM D');
 dateEl.text(day);
-var time = dayjs().format('H');
-console.log(time)
+// var time = dayjs().format('H');
+var time = 14;
+console.log(time);
 
-function blockCheckerTwo (){
-  for (i = 0; i<hours.length;i++){
-    $(`input[id="${this.name}"]`).addClass('past')
-  }
-}
-blockCheckerTwo(); 
+
+
 function createTimeBlocks (){
     for (var i = 0; i<hours.length; i++) {
-      container.append('<div id="hour-'+ hours[i]+'"class="row time-block '+blockChecker(hours[i]) +'"><div class="col-2 col-md-1 hour text-center py-3">'+ fixTime(hours[i]) + '</div><textarea class="col-8 col-md-10 description" rows="3" id="text'+ hours[i]+' text"> </textarea><button class="btn saveBtn col-2 col-md-1" aria-label="save" onclick="saveToDo('+hours[i]+')"><i class="fas fa-save" aria-hidden="true" id="button'+hours[i]+'" ></i></button></div>')
-      
+      container.append(`<div id="hour-${hours[i]}" class="row time-block ${blockChecker(hours[i])}">
+  <div class="col-2 col-md-1 hour text-center py-3">${fixTime(hours[i])}</div>
+  <textarea class="col-8 col-md-10 description" rows="3" id="text${hours[i]}"></textarea>
+  <button class="btn saveBtn col-2 col-md-1" aria-label="save" onclick="saveToDo(${hours[i]})">
+    <i class="fas fa-save" aria-hidden="true" id="button${hours[i]}" ></i>
+  </button>
+</div>`);      
       
     
     };
@@ -57,23 +59,10 @@ function blockChecker(blockHour){
     return blockColor;
 }
 
-function timeBlockColor(element, blockTime) {
-    if (blockTime<time) {
-      element.addClass("past");
-    }
-    else if (blockTime == time) {
-      element.addClass("present");
-    }
-    else {
-      element.addClass("future");
-    }
-}
-
-
 function saveToDo(form){
     console.log(form);
     var text = $('#text' + form).val();
-    console.log(text)
+    console.log(text);
     window.localStorage.setItem(form, text);
     console.log("done");
   }
