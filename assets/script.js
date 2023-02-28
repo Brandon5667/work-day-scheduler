@@ -60,11 +60,17 @@ function blockChecker(blockHour){
 }
 
 function saveToDo(form){
+  if (localStorage.getItem(form) == null){
     console.log(form);
     var text = $('#text' + form).val();
     console.log(text);
     window.localStorage.setItem(form, text);
-    console.log("done");
+    console.log(localStorage.getItem(form));
+  }
+  else{
+    $('#text' + form).val("")
+    localStorage.removeItem(form)
+  }
   }
 
 $(function () {
