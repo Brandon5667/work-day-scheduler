@@ -1,5 +1,5 @@
 var dateEl = $('#currentDay');
-var container = $(".container-fluid")
+var container = $(".container-fluid");
 var hours = [8,9,10,11,12,13,14,15,16,17];
 var day = dayjs().format('ddd, MMM D');
 dateEl.text(day);
@@ -34,6 +34,7 @@ function checkStorage (index){
     console.log(storedItem);
     return storedItem;
   }
+  
 }
 // fixes time to 12 hour day
 function fixTime(blockHour){
